@@ -1,6 +1,6 @@
 {
   "name": "@stdlib/array-base-strided2array3d",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Convert a strided array to a three-dimensional nested array.",
   "license": "Apache-2.0",
   "author": {
