@@ -1,4 +1,4 @@
-/**
+/*
 * @license Apache-2.0
 *
 * Copyright (c) 2023 The Stdlib Authors.
@@ -16,14 +16,12 @@
 * limitations under the License.
 */
 
-'use strict';
+// TypeScript Version: 4.1
 
-// MODULES //
+/// <reference types="https://cdn.jsdelivr.net/gh/stdlib-js/types@esm/index.d.ts"/>
 
-var resolveGetter = require( '@stdlib/array-base-resolve-getter' );
-
-
-// MAIN //
+import { Array3D, ArrayLike } from '@stdlib/types/array';
+import { Shape3D, Strides3D } from '@stdlib/types/ndarray';
 
 /**
 * Converts a strided array to a three-dimensional nested array.
@@ -32,11 +30,11 @@ var resolveGetter = require( '@stdlib/array-base-resolve-getter' );
 *
 * -   The function assumes that the input array is compatible with the specified array shape, dimension strides, and index offset.
 *
-* @param {Collection} x - input array
-* @param {NonNegativeIntegerArray} shape - array shape
-* @param {IntegerArray} strides - dimension strides
-* @param {NonNegativeInteger} offset - index of the first indexed value in the input array
-* @returns {Array<Array<Array>>} three-dimensional nested array
+* @param x - input array
+* @param shape - array shape
+* @param strides - dimension strides
+* @param offset - index of the first indexed value in the input array
+* @returns three-dimensional nested array
 *
 * @example
 * var x = [ 1, 2, 3, 4, 5, 6 ];
@@ -50,52 +48,9 @@ var resolveGetter = require( '@stdlib/array-base-resolve-getter' );
 * var arr = strided2array3d( x, [ 1, 3, 2 ], [ 1, 1, 3 ], 0 );
 * // returns [ [ [ 1, 4 ], [ 2, 5 ], [ 3, 6 ] ] ]
 */
-function strided2array3d( x, shape, strides, offset ) {
-	var get;
-	var out;
-	var dx0;
-	var dx1;
-	var dx2;
-	var ix1;
-	var ix0;
-	var S0;
-	var S1;
-	var S2;
-	var i0;
-	var i1;
-	var i2;
-	var t2;
-	var t1;
-
-	get = resolveGetter( x );
-
-	S2 = shape[ 0 ];
-	S1 = shape[ 1 ];
-	S0 = shape[ 2 ];
-
-	dx2 = strides[ 0 ];
-	dx1 = strides[ 1 ];
-	dx0 = strides[ 2 ];
-
-	out = [];
-	for ( i2 = 0; i2 < S2; i2++ ) {
-		t2 = [];
-		ix1 = offset + ( dx2*i2 );
-		for ( i1 = 0; i1 < S1; i1++ ) {
-			t1 = [];
-			ix0 = ix1 + ( dx1*i1 );
-			for ( i0 = 0; i0 < S0; i0++ ) {
-				t1.push( get( x, ix0 ) );
-				ix0 += dx0;
-			}
-			t2.push( t1 );
-		}
-		out.push( t2 );
-	}
-	return out;
-}
+declare function strided2array3d<T = unknown>( x: ArrayLike<T>, shape: Shape3D, strides: Strides3D, offset: number ): Array3D<T>;
 
 
 // EXPORTS //
 
-module.exports = strided2array3d;
+export = strided2array3d;
